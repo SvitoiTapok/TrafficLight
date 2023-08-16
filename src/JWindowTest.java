@@ -15,7 +15,9 @@ class Gradient extends Canvas{
     }
     public void paint(Graphics gg) {
         Graphics2D g = (Graphics2D) gg;
-        g.setPaint(new GradientPaint(new Point(0,0), new Color(color1[0], color1[1], color1[2]), new Point(1500,1000), new Color(color2[0], color2[1], color2[2])));
+        Color colorFirst = Color.getHSBColor(color1[0]/255.0f, color1[1]/255.0f, color1[2]/255.0f);
+        Color colorSecond = Color.getHSBColor(color2[0]/255.0f, color2[1]/255.0f, color2[2]/255.0f);
+        g.setPaint(new GradientPaint(new Point(0,0), colorFirst, new Point(1500,1000), colorSecond));
         g.fill(new Rectangle(0,0,1500,1000));
 
     }
@@ -55,14 +57,16 @@ class Main extends JPanel {
                     gg = new Gradient(color1, color2);
                     frame.add(gg);
                     frame.setVisible(true);
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                     frame.remove(g);
+                    frame.repaint();
                 }else {
                     g = new Gradient(color1, color2);
                     frame.add(g);
                     frame.setVisible(true);
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                     frame.remove(gg);
+                    frame.repaint();
                 }
             }catch (InterruptedException a){
                 System.exit(0);
